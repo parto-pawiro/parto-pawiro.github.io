@@ -10,13 +10,13 @@ body {
   background-color: #1e1e1e;
 }
 
-h3 {
+h1, h2, h3, h4, h5 {
   color: #ffffff;
 }
 /* Style for the container of the family tree */
 #tree {
   width: 100%; /* Set width to full container width */
-  height: 80%; /* Set height to 80% of container height */
+  height: 90%; /* Set height to 80% of container height */
   display: flex; /* Use flexbox for layout */
   flex-direction: row; /* Arrange children in a row */
   justify-content: flex-start; /* Align children to the start of the container */
