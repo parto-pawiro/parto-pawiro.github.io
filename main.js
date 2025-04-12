@@ -275,6 +275,7 @@ window.onload = function () {
     var createFamilyTree = function (orientation) {
       var family = new FamilyTree(document.getElementById("tree"), {
         mouseScrool: FamilyTree.action.zoom,
+        scaleInitial: options.scaleInitial,
         mode: 'dark',
         template: 'john',
         toolbar: {
