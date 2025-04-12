@@ -19,7 +19,8 @@
         var options = getOptions();
 
         var chart = new FamilyTree(document.getElementById("tree"), {
-            mouseScrool: FamilyTree.none,
+            mouseScrool: FamilyTree.action.zoom,
+            scaleInitial: options.scaleInitial,
             nodeBinding: {
                 field_0: "name",
                 field_1: "title",
