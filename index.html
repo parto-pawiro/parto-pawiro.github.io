@@ -14,122 +14,154 @@
     <meta http-equiv="pragma" content="no-cache" />
 
     <style>
-        .staticrypt-hr {
-            margin-top: 20px;
-            margin-bottom: 20px;
-            border: 0;
-            border-top: 1px solid #ffffff;
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
-        .staticrypt-page {
-            width: 360px;
-            padding: 8% 0 0;
-            margin: auto;
-            box-sizing: border-box;
-        }
-
-        .staticrypt-form {
-            position: relative;
-            z-index: 1;
-            color: #ffffff;
-            background: #0000001e;
-            max-width: 360px;
-            margin: 0 auto 100px;
-            padding: 45px;
-            text-align: center;
-            box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-        }
-
-        .staticrypt-form input[type="password"],
-        input[type="text"] {
-            background: inherit;
-            border: 0;
-            box-sizing: border-box;
-            /* This ensures padding is included in the total width */
-            font-size: 14px;
-            outline: 0;
-            padding: 15px 30px 15px 15px;
-            /* Adjust the padding to ensure there is space for the icon */
-            width: 100%;
-        }
-
-        .staticrypt-password-container {
-            position: relative;
-            outline: 0;
-            background: #f2f2f2;
-            width: 100%;
-            border: 0;
-            margin: 0 0 15px;
-            box-sizing: border-box;
-        }
-
-        .staticrypt-toggle-password-visibility {
-            cursor: pointer;
-            height: 20px;
-            opacity: 60%;
-            padding: 13px;
-            position: absolute;
-            right: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 20px;
-        }
-
-        .staticrypt-form .staticrypt-decrypt-button {
-            text-transform: uppercase;
-            outline: 0;
-            background: #1e1e1e;
-            width: 100%;
-            border: 0;
-            padding: 15px;
-            color: #ffffff;
-            font-size: 14px;
-            cursor: pointer;
-        }
-
-        .staticrypt-form .staticrypt-decrypt-button:hover,
-        .staticrypt-form .staticrypt-decrypt-button:active,
-        .staticrypt-form .staticrypt-decrypt-button:focus {
-            background: #1e1e1e;
-            filter: brightness(92%);
-        }
-
-        .staticrypt-html {
-            height: 100%;
-        }
-
-        .staticrypt-body {
-            height: 100%;
+        *,
+        :before,
+        :after {
             margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: inherit;
         }
 
-        .staticrypt-content {
-            height: 100%;
-            margin-bottom: 1em;
-            background: #1e1e1e;
-            font-family: "Arial", sans-serif;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
+        body {
+            font-family: 'Poppins', sans-serif;
         }
 
-        .staticrypt-instructions {
-            margin-top: -1em;
-            margin-bottom: 1em;
-        }
-
-        .staticrypt-title {
-            font-size: 1.5em;
-        }
-
-        label.staticrypt-remember {
+        .main {
+            height: 100vh;
+            width: 100%;
             display: flex;
+            align-content: center;
             align-items: center;
-            margin-bottom: 1em;
+            justify-content: center;
+            background: url(https://images.unsplash.com/photo-1506452305024-9d3f02d1c9b5?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80);
+            background-size: cover;
+            background-repeat: no-repeat;
         }
 
-        .staticrypt-remember input[type="checkbox"] {
-            transform: scale(1.5);
-            margin-right: 1em;
+        .login {
+            position: relative;
+            background: #686d6f7a;
+            padding: 35px 40px;
+            border-radius: 4px;
+            z-index: 1;
+            overflow: hidden;
+            box-shadow:
+                0px 12px 31px #ffffff52,
+                0px 36px 31px #000000a1;
+            animation: login 0.88s ease;
+        }
+
+        @keyframes login {
+            0% {
+                transform: translateY(-10%) scale(0.8);
+                opacity: 0;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .login:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background: url(https://images.unsplash.com/photo-1506452305024-9d3f02d1c9b5?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80);
+            width: 100%;
+            z-index: -1;
+            background-size: 182vh;
+            background-position: 28%, 83%;
+            filter: blur(24px);
+            background-repeat: no-repeat;
+            opacity: 0.8;
+        }
+
+        .heading {
+            /** font-size: 24px; */
+            font-weight: 400;
+            text-align: center;
+            /** margin-bottom: 18px; */
+            color: white;
+        }
+
+        .input {
+            display: block;
+            margin-bottom: 13px;
+            margin-top: 11px;
+        }
+
+        .input label {
+            display: block;
+            margin-bottom: 3px;
+            font-size: 13px;
+            color: white;
+            cursor: pointer;
+        }
+
+
+        .label {
+            margin-bottom: 3px;
+            font-size: 15px;
+            color: white;
+        }
+
+        .input input {
+            width: 100%;
+            padding: 10px;
+            outline: none;
+            border: none;
+            font-size: 15px;
+            border-radius: 4px;
+            background: #0000002b;
+            color: white;
+            transition: all 0.2s ease;
+        }
+
+        .input input:hover {
+            background: #3d434c;
+        }
+
+        .input input:focus {
+            box-shadow:
+                0px 2px 2px #0000002b,
+                0px 5px 10px #00000036;
+            background: #434343;
+        }
+
+        .login-btn {
+            margin-top: 10px;
+            margin-bottom: 15px;
+            padding: 8px 15px;
+            font-size: 14px;
+            background: #00000038;
+            border: 2px solid #38363654;
+            color: #e1e1e1;
+            border-radius: 4px;
+            width: 100%;
+            transition: all 0.2s cubic-bezier(0.79, 0.14, 0.15, 0.86);
+            cursor: pointer;
+        }
+
+        .login-btn:hover {
+            background: #0663b4;
+            transition: all 0.1s ease;
+        }
+
+        .login-btn:focus {
+            box-shadow: 0px 0px 0px 2px #a7a7a7b5;
+            background: #00000061;
+        }
+
+        .meta-text {
+            font-size: 13px;
+            margin-bottom: 15px;
+            color: white;
         }
 
         .hidden {
@@ -168,164 +200,32 @@
                 transform: rotate(360deg);
             }
         }
-
-        :root {
-            --toast-bg-success: #4caf50;
-            --toast-bg-error: #f44336;
-            --toast-bg-info: #2196f3;
-            --toast-bg-warning: #ff9800;
-        }
-
-        .toast-container {
-            position: fixed;
-            z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .top-right {
-            top: 20px;
-            right: 20px;
-            align-items: flex-end;
-        }
-
-        .top-left {
-            top: 20px;
-            left: 20px;
-            align-items: flex-start;
-        }
-
-        .bottom-right {
-            bottom: 20px;
-            right: 20px;
-            align-items: flex-end;
-        }
-
-        .bottom-left {
-            bottom: 20px;
-            left: 20px;
-            align-items: flex-start;
-        }
-
-        .top-center {
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            align-items: center;
-        }
-
-        .toast {
-            position: relative;
-            color: #fff;
-            padding: 16px 20px;
-            border-radius: 8px;
-            min-width: 280px;
-            max-width: 350px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            overflow: hidden;
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            animation: slideIn 0.3s ease;
-        }
-
-        .toast-icon {
-            font-size: 20px;
-            margin-top: 2px;
-        }
-
-        .toast-message {
-            flex: 1;
-        }
-
-        .toast-close {
-            position: absolute;
-            top: 10px;
-            right: 12px;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 18px;
-            cursor: pointer;
-        }
-
-        .toast-progress {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            height: 4px;
-            background: rgba(255, 255, 255, 0.7);
-            width: 100%;
-            transition: width linear;
-        }
-
-        .toast.success {
-            background-color: var(--toast-bg-success);
-        }
-
-        .toast.error {
-            background-color: var(--toast-bg-error);
-        }
-
-        .toast.info {
-            background-color: var(--toast-bg-info);
-        }
-
-        .toast.warning {
-            background-color: var(--toast-bg-warning);
-        }
-
-        @keyframes slideIn {
-            from {
-                transform: translateY(-20px);
-                opacity: 0;
-            }
-
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
     </style>
 </head>
 
-<body class="staticrypt-body">
-    <div class="toastify">
+<body class="">
 
-    </div>
+    <div class="main">
+        <div id="staticrypt_loading" class="staticrypt-spinner-container">
+            <div class="staticrypt-spinner"></div>
+        </div>
 
-    <div id="staticrypt_loading" class="staticrypt-spinner-container">
-        <div class="staticrypt-spinner"></div>
-    </div>
-
-    <div id="staticrypt_content" class="staticrypt-content hidden">
-        <div class="staticrypt-page">
-            <div class="staticrypt-form">
-                <div class="staticrypt-instructions">
-                    <p class="staticrypt-title">Parto Pawiro Family</p>
-                    <p>Masukan Password Untuk Akses</p>
+        <div id="staticrypt_content" class="login hidden">
+            <h1 class="heading">Parto Pawiro Family</h1>
+            <h3 class="heading">Masukan Password Untuk Akses</h3>
+            <hr />
+            <form id="staticrypt-form" action="#" method="post">
+                <div class="input">
+                    <input id="staticrypt-password" type="password" name="password" placeholder="Password" autofocus />
                 </div>
-
-                <hr class="staticrypt-hr" />
-
-                <form id="staticrypt-form" action="#" method="post">
-                    <div class="staticrypt-password-container">
-                        <input id="staticrypt-password" type="password" name="password" placeholder="Password"
-                            autofocus />
-
-                        <img class="staticrypt-toggle-password-visibility" alt="Show password" title="Show password"
-                            src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NDAgNTEyIj48IS0tIUZvbnQgQXdlc29tZSBGcmVlIDYuNS4yIGJ5IEBmb250YXdlc29tZSAtIGh0dHBzOi8vZm9udGF3ZXNvbWUuY29tIExpY2Vuc2UgLSBodHRwczovL2ZvbnRhd2Vzb21lLmNvbS9saWNlbnNlL2ZyZWUgQ29weXJpZ2h0IDIwMjQgRm9udGljb25zLCBJbmMuLS0+PHBhdGggZD0iTTM4LjggNS4xQzI4LjQtMy4xIDEzLjMtMS4yIDUuMSA5LjJTLTEuMiAzNC43IDkuMiA0Mi45bDU5MiA0NjRjMTAuNCA4LjIgMjUuNSA2LjMgMzMuNy00LjFzNi4zLTI1LjUtNC4xLTMzLjdMNTI1LjYgMzg2LjdjMzkuNi00MC42IDY2LjQtODYuMSA3OS45LTExOC40YzMuMy03LjkgMy4zLTE2LjcgMC0yNC42Yy0xNC45LTM1LjctNDYuMi04Ny43LTkzLTEzMS4xQzQ2NS41IDY4LjggNDAwLjggMzIgMzIwIDMyYy02OC4yIDAtMTI1IDI2LjMtMTY5LjMgNjAuOEwzOC44IDUuMXpNMjIzLjEgMTQ5LjVDMjQ4LjYgMTI2LjIgMjgyLjcgMTEyIDMyMCAxMTJjNzkuNSAwIDE0NCA2NC41IDE0NCAxNDRjMCAyNC45LTYuMyA0OC4zLTE3LjQgNjguN0w0MDggMjk0LjVjOC40LTE5LjMgMTAuNi00MS40IDQuOC02My4zYy0xMS4xLTQxLjUtNDcuOC02OS40LTg4LjYtNzEuMWMtNS44LS4yLTkuMiA2LjEtNy40IDExLjdjMi4xIDYuNCAzLjMgMTMuMiAzLjMgMjAuM2MwIDEwLjItMi40IDE5LjgtNi42IDI4LjNsLTkwLjMtNzAuOHpNMzczIDM4OS45Yy0xNi40IDYuNS0zNC4zIDEwLjEtNTMgMTAuMWMtNzkuNSAwLTE0NC02NC41LTE0NC0xNDRjMC02LjkgLjUtMTMuNiAxLjQtMjAuMkw4My4xIDE2MS41QzYwLjMgMTkxLjIgNDQgMjIwLjggMzQuNSAyNDMuN2MtMy4zIDcuOS0zLjMgMTYuNyAwIDI0LjZjMTQuOSAzNS43IDQ2LjIgODcuNyA5MyAxMzEuMUMxNzQuNSA0NDMuMiAyMzkuMiA0ODAgMzIwIDQ4MGM0Ny44IDAgODkuOS0xMi45IDEyNi4yLTMyLjVMMzczIDM4OS45eiIvPjwvc3ZnPg==" />
-                    </div>
-
-                    <label id="staticrypt-remember-label" class="staticrypt-remember hidden">
-                        <input id="staticrypt-remember" type="checkbox" name="remember" />
-                        Selalu Ingat
+                <div class="divider"></div>
+                <div class="label">
+                    <label id="staticrypt-remember-label" class="hidden">
+                        <input id="staticrypt-remember" type="checkbox" name="remember" /> Selalu Ingat
                     </label>
-
-                    <input type="submit" class="staticrypt-decrypt-button" value="MASUK" />
-                </form>
-            </div>
+                </div>
+                <input type="submit" class="login-btn" value="DECRYPT" />
+            </form>
         </div>
     </div>
 
@@ -927,9 +827,9 @@
 
             return exports;
         })());
-        const templateError = "Pasword Salah...!!!",
-            templateToggleAltShow = "Perlihatkan Password",
-            templateToggleAltHide = "Sembunyikan Password",
+        const templateError = "Bad password!",
+            //templateToggleAltShow = "Show password",
+            //templateToggleAltHide = "Hide password",
             isRememberEnabled = true,
             staticryptConfig = {"staticryptEncryptedMsgUniqueVariableName":"cd1e0e8818741c55e6c6f69d95d791f49d2fe2bbbd08788c97af0431f192576050f507603dba84d0da204b411e900aa3d0cde16653cbdbcfec303b6ded99d37eb7ad3f9260ffd7da59cc6ed6f8e500bbfdeb4bfac83799542925d6cd44b3e052aa254e148b25c04fc7dd2c6616c4a5ed6be48e52b693b18196f65de930d0eed8464ac409bbd43dfcb4ce7abebc93925376b8f63590ac846d74bfddf4c2f9426204f4e82b0a35fd840bf3976ad773c00514a9b229d4334193eab7b054f7c6274750266933b3bd0b8ce5486ea5eaa1238a8162b73271ee607eda6335e06e812b3f51bbfa2e1dda169d282c6053543d3f0da0cb11d6f5faa68d87bef93235c6dbc9816ea4fd5c639045107e64c02df5e5c949eb4383cc6aa12253284c88319b44ce14aa519af157ed883a4e6cc161db2f106aa5b1f69d6c5755bd6768f8deb837fe970d32c425f11c45364c747d56e11c606ba7f804e87296a057344c3f74e1a63d5a042339cad5c0f629a3384d7f7b6e42f82e0c7e8f8031a747b79d0d301a8c26f1290e6239e97cdf02ad5136b02bfa71d432c1f30e707ff0bd43fdeeb799492f51281f17f01f95ae4019943c4b93b8591444333c8ba2b117d64a5fa098d2eb060f93801acb7c1cec4c591709cf34db37043d21ad2db5fb7ed2b144adf0250f27f7bcc762496b93ff3f239fae7afd88dd5f7befd5ecf1339ff28736dba161a51f51fa6d843d6b1b0da5be51989f5d4120ecdf8467949f587c2e8dd6c64b19c5a88da71535fbea82017c05da79fa9370f2756a4e05b2b4ee53ebe613cac27275ed727a7378b540478a6809fb652d182d1dbb2256e7164193707d2fc989309544ad22e505ef2d3896142378e988d17d0e81c126daf5e6f047caf141f003dc0fc5b3b8c52b3ca33a72ecb785641b8c584a7bc190e64daf4fffa62eb96df1bc36f863eaa699715fad7c4e200ee2ba7863594ac9804bac5ef5d063210dda6481ad5b44ed9c2bf66d413153193e92cab059f1b7e7b03506b24e365fa537a285bce118285e12a3a41802cb43a1cf116753d64f52a5c5b3446c1c21bde5110e12330f6f2f086ea5505c5181c558453c8bb5a25aba7afdf329ef9c8dd3a31af09eba1bf3a3687982a65309a097f2e174131d42130bdbb00de8529c53b8b2935cd03efde6711b24169e26f8abb8b4196804c694839771144c94d951a6fa77b0ed1c8a949d593fa0d6358f8c13e4747f3843441d47bc70da368b1de301a84d80e191e7d9b10d92d9c2ade557b07ebab274802557544efb208b3751b1ec1b1144a5afbbf2a71242a0845a7fdfc5972ca5f1f0b31508107df305c1ad0fe161c907dbcd0f427349c176c72ba5eedf960358c60f0be42cdc9635c235837b574d1015a10657f7b096805bf8e2dbe4191b4c822d9d65e58a52d8a32f65c7b554b2c4ab8367358ced19dab65a0f8570046923ff921166b72fedb9df5af6dafb26a1735631deb630c2cf775cd15209e48a4a3f0d232337c094eb45862d7a222edc68f6f09678743c1f3a5673d5431d58140f0c6c4d673d03412d2aaf9d2027510ba6b3c9272085eba720dba0f7c876df18dfb6dc70f7c840a1d0d9494ba2457f3eabd4ab27a84981b8855404163a457ec92c5e2c446f0cd4e818a89c9b43147ff75579cf865ba169922a6b5239e756ebaa1ab4afee1986cf1e2bb59047951cb1db28814a4eac126190dc400d83c605d8ac4652ba4f62689ad050fad18cb635e4e1d785ce8bdeea1173315d6069224160d039653c3ea91de6d0765bb38c5a0da8da7d61060ea6b632a2e829a3b0480c576d868b450c8c6e1bb367805cb74669b93ce6f714c08773a134bc10b0307a22a5a231de1dbe9a83ac1104cecd8e9a454c4e02bda31425b9d64b7e88915cf043eae26e2ff9ee1e239ec09bf3ccb9c8fd52e318fe53ee6b373ff8b7a1fd791a0f5c54708feccb4385aad32b5e33539012d868c04312dd60c07a2575b7968ab63063008174d6db8816c735269265ab301d09137e55801f966996f258372ea5dca4efdba6c31915a539ac5787a944233311776d3960cd1373c6d0bbc72dd188a6628fca842d6ad647e24b7928d4df4ff56143d9ae5fb5b33e87c19d6388a7587f2aee372893ce13ac155c53f69e3c0a5d55f2b297fdb0fd752e0e3651ee361c634c991e4e82785c339c0ae7dc353e753591d1589b6fe4b877d3188bf57908b353809ff9acd05dbbbd6a21a9ba2d09822a8bcb1b3fb59eed557900e533240378b98a5cc60b8aeba2a0c50fb25bdd3b71a8067fd11c92450a78a4f9caf4c28f2618c98901177cff46c9ec28bd12ba65952d20bb9ae08e40fa93ce25a849b36cf48cce9ebd5549c1bbb599afaf29ed76a8419c67c921837ccae4838935ee","isRememberEnabled":true,"rememberDurationInDays":0,"staticryptSaltUniqueVariableName":"7d3f8505ee40cb5565a7a87c5a327d6f"};
 
@@ -963,6 +863,7 @@
             }
         };
 
+        /**
         // toggle password visibility
         const toggleIcon = document.querySelector(".staticrypt-toggle-password-visibility");
         // these two icons are coming from FontAwesome
@@ -984,85 +885,8 @@
                 toggleIcon.title = templateToggleAltShow;
             }
         });
+        */
 
-        // Toast
-        const Toast = (() => {
-            const icons = {
-                success: "✅",
-                error: "❌",
-                info: "ℹ️",
-                warning: "⚠️"
-            };
-
-            const containerMap = {};
-
-            function getContainer(position) {
-                if (!containerMap[position]) {
-                    const container = document.createElement("div");
-                    container.className = `toast-container ${position}`;
-                    document.body.appendChild(container);
-                    containerMap[position] = container;
-                }
-                return containerMap[position];
-            }
-
-            function show({ message, type = "info", duration = 3000, position = "top-right" }) {
-                const container = getContainer(position);
-
-                const toast = document.createElement("div");
-                toast.className = `toast ${type}`;
-
-                const progress = document.createElement("div");
-                progress.className = "toast-progress";
-
-                toast.innerHTML = `
-          <div class="toast-icon">${icons[type]}</div>
-          <div class="toast-message">${message}</div>
-          <button class="toast-close">×</button>
-        `;
-                toast.appendChild(progress);
-
-                container.appendChild(toast);
-
-                const closeBtn = toast.querySelector(".toast-close");
-                closeBtn.addEventListener("click", () => {
-                    clearTimeout(timer);
-                    toast.remove();
-                });
-
-                let startTime = Date.now();
-                let paused = false;
-                let remaining = duration;
-                let timer = setTimeout(() => toast.remove(), duration);
-
-                const animateProgress = () => {
-                    progress.style.transition = `width ${remaining}ms linear`;
-                    progress.style.width = "0%";
-                };
-
-                toast.addEventListener("mouseenter", () => {
-                    if (!paused) {
-                        paused = true;
-                        clearTimeout(timer);
-                        remaining -= Date.now() - startTime;
-                        progress.style.transition = "none";
-                    }
-                });
-
-                toast.addEventListener("mouseleave", () => {
-                    if (paused) {
-                        paused = false;
-                        startTime = Date.now();
-                        timer = setTimeout(() => toast.remove(), remaining);
-                        animateProgress();
-                    }
-                });
-
-                animateProgress();
-            }
-
-            return { show };
-        })();
         // handle password form submission
         document.getElementById("staticrypt-form").addEventListener("submit", async function (e) {
             e.preventDefault();
@@ -1073,7 +897,7 @@
             const { isSuccessful } = await staticrypt.handleDecryptionOfPage(password, isRememberChecked);
 
             if (!isSuccessful) {
-                Toast.show({ message: templateError, type: 'error', position: 'top-center' });
+                alert(templateError);
             }
         });
     </script>
