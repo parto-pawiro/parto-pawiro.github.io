@@ -12,6 +12,8 @@
     <meta http-equiv="expires" content="0" />
     <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
     <meta http-equiv="pragma" content="no-cache" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="lib/crypted.js"></script>
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
@@ -200,11 +202,34 @@
                 transform: rotate(360deg);
             }
         }
+
+        @keyframes bounceInDown {
+            0% {
+                opacity: 0;
+                transform: translateY(-100%) scale(0.3);
+            }
+
+            60% {
+                opacity: 1;
+                transform: translateY(30px) scale(1.05);
+            }
+
+            80% {
+                transform: translateY(-10px) scale(0.95);
+            }
+
+            100% {
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .toast.bounce-in {
+            animation: bounceInDown 0.8s ease forwards;
+        }
     </style>
 </head>
 
 <body class="">
-
     <div class="main">
         <div id="staticrypt_loading" class="staticrypt-spinner-container">
             <div class="staticrypt-spinner"></div>
@@ -226,6 +251,20 @@
                 </div>
                 <input type="submit" class="login-btn" value="DECRYPT" />
             </form>
+        </div>
+
+        <!-- Toast Container -->
+        <div class="position-fixed top-0 start-50 translate-middle-x p-3" style="z-index: 11; margin-top: 1rem;">
+            <div id="universalToast" class="toast align-items-center border-0" role="alert" aria-live="assertive"
+                aria-atomic="true">
+                <div class="d-flex">
+                    <div id="toastBody" class="toast-body">
+                        <!-- Isi toast -->
+                    </div>
+                    <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast"
+                        aria-label="Close"></button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -827,11 +866,11 @@
 
             return exports;
         })());
-        const templateError = "Bad password!",
+        const templateError = "Passwor Salah ... !!!",
             //templateToggleAltShow = "Show password",
             //templateToggleAltHide = "Hide password",
             isRememberEnabled = true,
-            staticryptConfig = {"staticryptEncryptedMsgUniqueVariableName":"cd1e0e8818741c55e6c6f69d95d791f49d2fe2bbbd08788c97af0431f192576050f507603dba84d0da204b411e900aa3d0cde16653cbdbcfec303b6ded99d37eb7ad3f9260ffd7da59cc6ed6f8e500bbfdeb4bfac83799542925d6cd44b3e052aa254e148b25c04fc7dd2c6616c4a5ed6be48e52b693b18196f65de930d0eed8464ac409bbd43dfcb4ce7abebc93925376b8f63590ac846d74bfddf4c2f9426204f4e82b0a35fd840bf3976ad773c00514a9b229d4334193eab7b054f7c6274750266933b3bd0b8ce5486ea5eaa1238a8162b73271ee607eda6335e06e812b3f51bbfa2e1dda169d282c6053543d3f0da0cb11d6f5faa68d87bef93235c6dbc9816ea4fd5c639045107e64c02df5e5c949eb4383cc6aa12253284c88319b44ce14aa519af157ed883a4e6cc161db2f106aa5b1f69d6c5755bd6768f8deb837fe970d32c425f11c45364c747d56e11c606ba7f804e87296a057344c3f74e1a63d5a042339cad5c0f629a3384d7f7b6e42f82e0c7e8f8031a747b79d0d301a8c26f1290e6239e97cdf02ad5136b02bfa71d432c1f30e707ff0bd43fdeeb799492f51281f17f01f95ae4019943c4b93b8591444333c8ba2b117d64a5fa098d2eb060f93801acb7c1cec4c591709cf34db37043d21ad2db5fb7ed2b144adf0250f27f7bcc762496b93ff3f239fae7afd88dd5f7befd5ecf1339ff28736dba161a51f51fa6d843d6b1b0da5be51989f5d4120ecdf8467949f587c2e8dd6c64b19c5a88da71535fbea82017c05da79fa9370f2756a4e05b2b4ee53ebe613cac27275ed727a7378b540478a6809fb652d182d1dbb2256e7164193707d2fc989309544ad22e505ef2d3896142378e988d17d0e81c126daf5e6f047caf141f003dc0fc5b3b8c52b3ca33a72ecb785641b8c584a7bc190e64daf4fffa62eb96df1bc36f863eaa699715fad7c4e200ee2ba7863594ac9804bac5ef5d063210dda6481ad5b44ed9c2bf66d413153193e92cab059f1b7e7b03506b24e365fa537a285bce118285e12a3a41802cb43a1cf116753d64f52a5c5b3446c1c21bde5110e12330f6f2f086ea5505c5181c558453c8bb5a25aba7afdf329ef9c8dd3a31af09eba1bf3a3687982a65309a097f2e174131d42130bdbb00de8529c53b8b2935cd03efde6711b24169e26f8abb8b4196804c694839771144c94d951a6fa77b0ed1c8a949d593fa0d6358f8c13e4747f3843441d47bc70da368b1de301a84d80e191e7d9b10d92d9c2ade557b07ebab274802557544efb208b3751b1ec1b1144a5afbbf2a71242a0845a7fdfc5972ca5f1f0b31508107df305c1ad0fe161c907dbcd0f427349c176c72ba5eedf960358c60f0be42cdc9635c235837b574d1015a10657f7b096805bf8e2dbe4191b4c822d9d65e58a52d8a32f65c7b554b2c4ab8367358ced19dab65a0f8570046923ff921166b72fedb9df5af6dafb26a1735631deb630c2cf775cd15209e48a4a3f0d232337c094eb45862d7a222edc68f6f09678743c1f3a5673d5431d58140f0c6c4d673d03412d2aaf9d2027510ba6b3c9272085eba720dba0f7c876df18dfb6dc70f7c840a1d0d9494ba2457f3eabd4ab27a84981b8855404163a457ec92c5e2c446f0cd4e818a89c9b43147ff75579cf865ba169922a6b5239e756ebaa1ab4afee1986cf1e2bb59047951cb1db28814a4eac126190dc400d83c605d8ac4652ba4f62689ad050fad18cb635e4e1d785ce8bdeea1173315d6069224160d039653c3ea91de6d0765bb38c5a0da8da7d61060ea6b632a2e829a3b0480c576d868b450c8c6e1bb367805cb74669b93ce6f714c08773a134bc10b0307a22a5a231de1dbe9a83ac1104cecd8e9a454c4e02bda31425b9d64b7e88915cf043eae26e2ff9ee1e239ec09bf3ccb9c8fd52e318fe53ee6b373ff8b7a1fd791a0f5c54708feccb4385aad32b5e33539012d868c04312dd60c07a2575b7968ab63063008174d6db8816c735269265ab301d09137e55801f966996f258372ea5dca4efdba6c31915a539ac5787a944233311776d3960cd1373c6d0bbc72dd188a6628fca842d6ad647e24b7928d4df4ff56143d9ae5fb5b33e87c19d6388a7587f2aee372893ce13ac155c53f69e3c0a5d55f2b297fdb0fd752e0e3651ee361c634c991e4e82785c339c0ae7dc353e753591d1589b6fe4b877d3188bf57908b353809ff9acd05dbbbd6a21a9ba2d09822a8bcb1b3fb59eed557900e533240378b98a5cc60b8aeba2a0c50fb25bdd3b71a8067fd11c92450a78a4f9caf4c28f2618c98901177cff46c9ec28bd12ba65952d20bb9ae08e40fa93ce25a849b36cf48cce9ebd5549c1bbb599afaf29ed76a8419c67c921837ccae4838935ee","isRememberEnabled":true,"rememberDurationInDays":0,"staticryptSaltUniqueVariableName":"7d3f8505ee40cb5565a7a87c5a327d6f"};
+            staticryptConfig = { "staticryptEncryptedMsgUniqueVariableName": cryptPage, "isRememberEnabled": true, "rememberDurationInDays": 0, "staticryptSaltUniqueVariableName": SaltUniqueVariable};
 
         // you can edit these values to customize some of the behavior of StatiCrypt
         const templateConfig = {
@@ -887,6 +926,41 @@
         });
         */
 
+
+        //Toast Boota=strap
+        let toastInstance = null;
+        let toastTimeout = null;
+
+        function showToast(text, tipe = 'info', timeout = 3000) {
+            const toastEl = document.getElementById('universalToast');
+            const toastBody = document.getElementById('toastBody');
+
+            // Atur warna background sesuai tipe
+            toastEl.className = `toast align-items-center text-bg-${tipe} border-0 bounce-in`;
+
+            // Set isi pesan
+            toastBody.textContent = text;
+
+            // Reset animasi
+            void toastEl.offsetWidth;
+            toastEl.classList.add('bounce-in');
+
+            // Buat toast jika belum
+            if (!toastInstance) {
+                toastInstance = new bootstrap.Toast(toastEl, {
+                    autohide: false
+                });
+            }
+
+            toastInstance.show();
+
+            if (toastTimeout) clearTimeout(toastTimeout);
+
+            toastTimeout = setTimeout(() => {
+                toastInstance.hide();
+            }, timeout);
+        }
+
         // handle password form submission
         document.getElementById("staticrypt-form").addEventListener("submit", async function (e) {
             e.preventDefault();
@@ -897,10 +971,11 @@
             const { isSuccessful } = await staticrypt.handleDecryptionOfPage(password, isRememberChecked);
 
             if (!isSuccessful) {
-                alert(templateError);
+                showToast('❌ ' + templateError, 'danger', 2000);
             }
         });
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
