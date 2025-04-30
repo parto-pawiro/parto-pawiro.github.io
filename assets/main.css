@@ -7,7 +7,6 @@ body {
   margin: 0; /* Remove margin */
   overflow: hidden; /* Hide overflow to prevent scrollbars */
   font-family: Helvetica; /* Set default font family */
-  background-color: #1e1e1e;
 }
 
 h1, h2, h3, h4, h5 {
@@ -22,6 +21,25 @@ h1, h2, h3, h4, h5 {
   justify-content: flex-start; /* Align children to the start of the container */
   align-items: flex-start; /* Align children to the start of the cross axis */
   overflow-y: auto; /* Enable vertical scrolling if needed */
+}
+
+
+.male>rect{
+  fill: #2196F3 !important;
+}
+.bft-edit-form.male .bft-edit-form-header,
+.bft-edit-form.male .bft-img-button{
+  color: #ffffff;
+    background-color: #2196F3 !important;
+}
+
+.female>rect{
+  fill: #FFC0CB !important;
+}
+.bft-edit-form.female .bft-edit-form-header,
+.bft-edit-form.female .bft-img-button{
+  color: #ffffff;
+    background-color: #FFC0CB !important;
 }
 
 /* Style for the orientation dropdown container */
@@ -60,6 +78,7 @@ h1, h2, h3, h4, h5 {
   }
 }
 
+
 /* Apply blur filter to certain elements */
 .filter rect,
 .filter image,
@@ -67,3 +86,5 @@ h1, h2, h3, h4, h5 {
 .filter use {
   filter: blur(6px); /* Apply blur filter */
 }
+
+
