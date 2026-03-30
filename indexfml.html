@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find My Loc</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+
+        :root {
+            --bg-gradient: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --card-border: rgba(255, 255, 255, 0.1);
+            --primary: #4facfe;
+            --primary-hover: #00f2fe;
+            --text-main: #ffffff;
+            --text-muted: #a0aec0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 40px 30px;
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 30px;
+            background: -webkit-linear-gradient(45deg, var(--primary), var(--primary-hover));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .btn-locate {
+            background: linear-gradient(45deg, var(--primary), var(--primary-hover));
+            border: none;
+            border-radius: 50px;
+            color: #000;
+            font-size: 1.1rem;
+            font-weight: 600;
+            padding: 15px 40px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 10px 20px -10px var(--primary);
+            width: 100%;
+            max-width: 300px;
+            margin-bottom: 20px;
+        }
+
+        .btn-locate:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 25px -10px var(--primary-hover);
+        }
+
+        .btn-locate:active {
+            transform: translateY(1px);
+        }
+
+        .btn-locate:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .results {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .results-content {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+
+        .results-content.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .location-card, .photo-card {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 16px;
+            padding: 20px;
+            border: 1px solid var(--card-border);
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .location-card p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .location-card strong {
+            color: var(--text-main);
+        }
+
+        .photo-container {
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            background: #000;
+            aspect-ratio: 4/3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #camera-video, #captured-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        #camera-video {
+            display: none;
+        }
+
+        #captured-photo {
+            display: none;
+        }
+
+        .loader {
+            display: none;
+            width: 24px;
+            height: 24px;
+            border: 3px solid rgba(0, 0, 0, 0.3);
+            border-radius: 50%;
+            border-top-color: #000;
+            animation: spin 1s ease-in-out infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .btn-text {
+            display: inline-block;
+        }
+        
+        .loading .btn-text {
+            display: none;
+        }
+        
+        .loading .loader {
+            display: block;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Find My Loc</h1>
+        <button id="locateBtn" class="btn-locate">
+            <span class="btn-text">Locate Me</span>
+            <div class="loader"></div>
+        </button>
+
+        <div id="results" class="results">
+            <div id="results-content" class="results-content">
+                <div class="location-card" id="locationData">
+                    <p style="margin-bottom: 12px; font-weight: 600; color: #fff;">📍 Lokasi Anda:</p>
+                    <p>Latitude: <strong id="lat">-</strong></p>
+                    <p>Longitude: <strong id="lng">-</strong></p>
+                    <p>Akurasi: <strong id="acc">-</strong> meter</p>
+                </div>
+                
+                <div class="photo-card">
+                    <p style="margin-bottom: 12px; font-weight: 600; color: #fff;">📸 Foto Pengguna:</p>
+                    <div class="photo-container">
+                        <video id="camera-video" autoplay playsinline></video>
+                        <canvas id="camera-canvas" style="display: none;"></canvas>
+                        <img id="captured-photo" alt="Captured self" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const locateBtn = document.getElementById('locateBtn');
+        const results = document.getElementById('results');
+        const resultsContent = document.getElementById('results-content');
+        const latEl = document.getElementById('lat');
+        const lngEl = document.getElementById('lng');
+        const accEl = document.getElementById('acc');
+        const videoEl = document.getElementById('camera-video');
+        const canvasEl = document.getElementById('camera-canvas');
+        const photoEl = document.getElementById('captured-photo');
+
+        locateBtn.addEventListener('click', async () => {
+            // Set loading state
+            locateBtn.classList.add('loading');
+            locateBtn.disabled = true;
+            resultsContent.classList.remove('show');
+            photoEl.style.display = 'none';
+            videoEl.style.display = 'none';
+            
+            try {
+                // Get Location First
+                const position = await new Promise((resolve, reject) => {
+                    if (!navigator.geolocation) {
+                        reject(new Error("Geolocation is not supported by your browser"));
+                    } else {
+                        navigator.geolocation.getCurrentPosition(resolve, reject, {
+                            enableHighAccuracy: true,
+                            timeout: 10000,
+                            maximumAge: 0
+                        });
+                    }
+                });
+
+                latEl.textContent = position.coords.latitude.toFixed(6);
+                lngEl.textContent = position.coords.longitude.toFixed(6);
+                accEl.textContent = Math.round(position.coords.accuracy);
+
+                // Show results container early so video can be rendered
+                results.style.display = 'block';
+                
+                // Get Camera Stream (Front facing)
+                const stream = await navigator.mediaDevices.getUserMedia({
+                    video: { facingMode: "user" },
+                    audio: false
+                });
+                
+                videoEl.style.display = 'block';
+                videoEl.srcObject = stream;
+
+                // Wait for video to be ready to play
+                await new Promise(resolve => {
+                    videoEl.onloadedmetadata = () => {
+                        videoEl.play();
+                        resolve();
+                    };
+                });
+
+                // Let the camera adjust for a second before snapping
+                await new Promise(r => setTimeout(r, 1000));
+
+                // Take snap
+                canvasEl.width = videoEl.videoWidth;
+                canvasEl.height = videoEl.videoHeight;
+                canvasEl.getContext('2d').drawImage(videoEl, 0, 0, canvasEl.width, canvasEl.height);
+                
+                const photoDataUrl = canvasEl.toDataURL('image/jpeg');
+                photoEl.src = photoDataUrl;
+                photoEl.style.display = 'block';
+                
+                // Stop the camera
+                videoEl.style.display = 'none';
+                stream.getTracks().forEach(track => track.stop());
+
+                // Reveal results with animation
+                resultsContent.offsetHeight; // trigger reflow
+                resultsContent.classList.add('show');
+
+            } catch (err) {
+                alert("Terjadi kesalahan: " + err.message);
+                results.style.display = 'none';
+            } finally {
+                // Reset loading state
+                locateBtn.classList.remove('loading');
+                locateBtn.disabled = false;
+                locateBtn.querySelector('.btn-text').textContent = "Coba Lagi";
+            }
+        });
+    </script>
+</body>
+</html>
